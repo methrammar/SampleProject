@@ -42,17 +42,17 @@ namespace SampleWinForms.View
 
         private void LoadComponents()
         {
-            cbxCustomer.DataSource = _customers;
             cbxCustomer.ValueMember = "id";
             cbxCustomer.DisplayMember = "companyName";
+            cbxCustomer.DataSource = _customers;
 
-            cbxEmployee.DataSource = _employees;
             cbxEmployee.ValueMember = "id";
             cbxEmployee.DisplayMember = "firstName";
+            cbxEmployee.DataSource = _employees;
 
-            cbxShipper.DataSource = _shippers;
             cbxShipper.ValueMember = "id";
             cbxShipper.DisplayMember = "companyName";
+            cbxShipper.DataSource = _shippers;
             
             if (_order != null) 
             { 
@@ -66,8 +66,12 @@ namespace SampleWinForms.View
                 dtpRequired.Value = _order.requiredDate == null ? DateTime.Today : (DateTime)_order.requiredDate;
                 dtpShip.Value = _order.shippedDate == null ? DateTime.Today : (DateTime)_order.shippedDate;
             }
+            else
+            {
+                _order = new Order();
+            }
 
-            if(_openType == OpenType.Analyze)
+            if(_openType == OpenType.Examine)
             {
                 cbxCustomer.Enabled = false;
                 cbxEmployee.Enabled = false;
@@ -75,7 +79,13 @@ namespace SampleWinForms.View
                 dtpOrder.Enabled = false;
                 dtpRequired.Enabled = false;
                 dtpShip.Enabled = false;
-
+                txtCity.Enabled = false;
+                txtCode.Enabled=false;
+                txtCountry.Enabled=false;
+                mtxtFreight.Enabled=false;
+                txtRegion.Enabled=false;
+                txtShipName.Enabled=false;
+                txtStreet.Enabled=false;
             }
         }
 
@@ -88,7 +98,7 @@ namespace SampleWinForms.View
             {
                 switch (_openType)
                 {
-                    case OpenType.Analyze:
+                    case OpenType.Examine:
                         this.Close();
                         break;
                     case OpenType.Create:
@@ -96,14 +106,26 @@ namespace SampleWinForms.View
                         {
                             Order order = new Order()
                             {
-                                customerId = cbxCustomer.ValueMember,
-                                employeeId = Convert.ToInt32(cbxEmployee.ValueMember),
-                                shipVia = Convert.ToInt32(cbxShipper.ValueMember),
+                                id = _order.id == null ? 0:_order.id,
+                                customerId = ((Customer)cbxCustomer.SelectedItem).id,
+                                employeeId = (int)((Employee)cbxEmployee.SelectedItem).id,
+                                shipVia = (int)((Shipper)cbxShipper.SelectedItem).id,
                                 orderDate = dtpOrder.Value,
                                 requiredDate = dtpRequired.Value,
                                 shippedDate = dtpShip.Value,
+                                freight = Convert.ToDouble(mtxtFreight.Text),
+                                shipName = txtShipName.Text,
                                 details = (List<Detail>)dgwOrfLine.DataSource
                             };
+                            Address address = new Address
+                            {
+                                country = txtCountry.Text,
+                                city = txtCity.Text,
+                                street = txtStreet.Text,
+                                postalCode = txtCode.Text,
+                                region = txtRegion.Text
+                            };
+                            order.shipAddress = address;
                             service.Add(order);
                         }
                         break;
@@ -119,12 +141,25 @@ namespace SampleWinForms.View
                                 orderDate = dtpOrder.Value,
                                 requiredDate = dtpRequired.Value,
                                 shippedDate = dtpShip.Value,
+                                freight=Convert.ToDouble(mtxtFreight.Text),
+                                shipName = txtShipName.Text,
                                 details = (List<Detail>)dgwOrfLine.DataSource
                             };
+                            Address address = new Address
+                            {
+                                country=txtCountry.Text,
+                                city=txtCity.Text,
+                                street=txtStreet.Text,
+                                postalCode=txtCode.Text,
+                                region=txtRegion.Text
+                            };
+                            order.shipAddress = address;
+
                             service.Update(order);
                         }
                         break;
                 }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -138,5 +173,30 @@ namespace SampleWinForms.View
         }
         #endregion
 
+        private void dgwOrfLine_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && _openType != OpenType.Examine)
+                cmsItem.Show(Cursor.Position.X, Cursor.Position.Y);
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Detail newItem = new Detail();
+            using(Form frm = new AddOrderProduct((d) => { newItem = d; }))
+            {
+                frm.ShowDialog();
+
+                _order.details.Add(newItem);
+                dgwOrfLine.DataSource = _order.details;
+                dgwOrfLine.Refresh();
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _order.details.Remove((Detail)dgwOrfLine.CurrentRow.DataBoundItem);
+            dgwOrfLine.DataSource = _order.details;
+            dgwOrfLine.Refresh();
+        }
     }
 }

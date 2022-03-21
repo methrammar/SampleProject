@@ -1,7 +1,8 @@
 ﻿using SampleDataAccess.DataAccess;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -22,9 +23,12 @@ namespace SampleDataAccess.Model
 
         public void Post()
         {
+            
+            IConfiguration appSettingsJson = AppSettingsJson.GetAppSettings();
+            string connectionString = appSettingsJson["ConnectionString"];
+
             IDBManager dbManager = new DBManager(DataProvider.SqlServer);
-            dbManager.ConnectionString = ConfigurationManager.AppSettings[
-              "ConnectionString"].ToString();
+            dbManager.ConnectionString = connectionString;
 
             try
             {
@@ -40,9 +44,9 @@ namespace SampleDataAccess.Model
                 {
                     string createTableString = @"CREATE TABLE SAMPLE_LOG(
                                                         LOGICALREF INT PRIMARY KEY IDENTITY(1,1),
-                                                        TIMESTAMP DATE,
-                                                        OBJECT VARCHAR(50),
-                                                        METHOD VARCHAR(10),
+                                                        TIMESTAMP_ DATE,
+                                                        OBJECT_ VARCHAR(50),
+                                                        METHOD_ VARCHAR(10),
                                                         STATUSCODE VARCHAR(30),
                                                         STATUSDESCRIPTION VARCHAR(MAX),
                                                         EXCEPTION VARCHAR(MAX));";
@@ -51,14 +55,14 @@ namespace SampleDataAccess.Model
                 }
 
                 string insertText = $@"INSERT INTO SAMPLE_LOG
-                                        (TIMESTAMP,OBJECT,METHOD,STATUSCODE,STATUSDESCRIPTION,EXCEPTION)
+                                        (TIMESTAMP_,OBJECT_,METHOD_,STATUSCODE,STATUSDESCRIPTION,EXCEPTION)
                                         VALUES(
-                                        TIMESTAMP= @TimeStamp,
-                                        OJBECT = @Object,
-                                        METHOD = @Method,
-                                        STATUSCODE = @StatusCode,
-                                        STATUSDESCRIPTION = @StatusDescription,
-                                        EXCEPTION = @Exception";
+                                        @TimeStamp,
+                                        @Object,
+                                        @Method,
+                                        @StatusCode,
+                                        @StatusDescription,
+                                        @Exception)";
 
                 dbManager.CreateParameters(6);
                 dbManager.AddParameters(0, "@TimeStamp", this.TIMESTAMP);
@@ -74,7 +78,7 @@ namespace SampleDataAccess.Model
             catch (Exception ex)
             {
                 string message = DateTime.Now.ToLongDateString() + " Exception thrown: " + ex.Message + ".\n";
-                File.WriteAllText("DataAccessLog.txt", message);
+                File.AppendAllText("DataAccessLog.txt", message);
             }
 
             finally

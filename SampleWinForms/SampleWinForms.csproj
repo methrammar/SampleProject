@@ -7,6 +7,11 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SampleServices\SampleServices.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -139,5 +144,10 @@
     <Reference Include="Syncfusion.XlsIO.Base">
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\Windows\19.4.0.38\precompiledassemblies\net5.0\Syncfusion.XlsIO.Base.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

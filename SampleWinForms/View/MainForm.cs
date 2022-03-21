@@ -44,9 +44,11 @@ namespace SampleWinForms.View
             dgwOrders.ReadOnly = true;
             dgwProducts.DataSource = products;
             dgwProducts.ReadOnly = true;
-            cbxCategories.DataSource = categories;
+
             cbxCategories.DisplayMember = "name";
             cbxCategories.ValueMember = "id";
+            cbxCategories.DataSource = categories;
+ 
         }
 
         private void txtOrderSearch_TextChanged(object sender, EventArgs e)
@@ -143,7 +145,7 @@ namespace SampleWinForms.View
             {
                 case 0:
                     Order selected = (Order)dgwOrders.CurrentRow.DataBoundItem;
-                    using (Form form = new OrderDetails(selected, products, employees, shippers, customers, OpenType.Analyze))
+                    using (Form form = new OrderDetails(selected, products, employees, shippers, customers, OpenType.Examine))
                     {
                         form.ShowDialog();
                         RefreshForm();
@@ -222,8 +224,6 @@ namespace SampleWinForms.View
                         detail.productName = products.Find(p => p.id == detail.productId).name;
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -231,9 +231,6 @@ namespace SampleWinForms.View
             }
 
         }
-
-
-
         #endregion
 
 

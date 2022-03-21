@@ -12,7 +12,7 @@ namespace SampleWinForms.Controller
         {
             Create,
             Alter,
-            Analyze,
+            Examine,
         }
     }
 }

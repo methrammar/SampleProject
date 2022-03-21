@@ -143,7 +143,7 @@ namespace SampleServices.Services
                 using (var client = new RestClient(_connectionString))
                 {
                     PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
-                    jsonResolver.IgnoreProperty(typeof(T), "id");
+                    //jsonResolver.IgnoreProperty(typeof(T), "id");
                     JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
                     serializerSettings.ContractResolver = jsonResolver;
                     string jsonString = JsonConvert.SerializeObject(item, serializerSettings);

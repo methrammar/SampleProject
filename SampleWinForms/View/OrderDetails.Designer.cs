@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblCustomer = new System.Windows.Forms.Label();
             this.cbxCustomer = new System.Windows.Forms.ComboBox();
             this.lblOrderDate = new System.Windows.Forms.Label();
@@ -45,17 +46,25 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.lblDetails = new System.Windows.Forms.Label();
             this.lblAddress = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.lblCode = new System.Windows.Forms.Label();
+            this.lblStreet = new System.Windows.Forms.Label();
+            this.lblCity = new System.Windows.Forms.Label();
+            this.lblRegion = new System.Windows.Forms.Label();
+            this.lblCountry = new System.Windows.Forms.Label();
+            this.txtCountry = new System.Windows.Forms.TextBox();
+            this.txtCity = new System.Windows.Forms.TextBox();
+            this.txtStreet = new System.Windows.Forms.TextBox();
+            this.txtRegion = new System.Windows.Forms.TextBox();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.txtShipName = new System.Windows.Forms.TextBox();
+            this.lblShipName = new System.Windows.Forms.Label();
+            this.lblFreight = new System.Windows.Forms.Label();
+            this.mtxtFreight = new System.Windows.Forms.MaskedTextBox();
+            this.cmsItem = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOrfLine)).BeginInit();
+            this.cmsItem.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCustomer
@@ -160,16 +169,17 @@
             // dgwOrfLine
             // 
             this.dgwOrfLine.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwOrfLine.Location = new System.Drawing.Point(6, 338);
+            this.dgwOrfLine.Location = new System.Drawing.Point(6, 408);
             this.dgwOrfLine.Name = "dgwOrfLine";
             this.dgwOrfLine.RowHeadersWidth = 51;
             this.dgwOrfLine.RowTemplate.Height = 29;
-            this.dgwOrfLine.Size = new System.Drawing.Size(678, 181);
+            this.dgwOrfLine.Size = new System.Drawing.Size(696, 221);
             this.dgwOrfLine.TabIndex = 12;
+            this.dgwOrfLine.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgwOrfLine_MouseClick);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(590, 525);
+            this.btnClose.Location = new System.Drawing.Point(608, 649);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(94, 29);
             this.btnClose.TabIndex = 13;
@@ -179,7 +189,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(4, 525);
+            this.btnSave.Location = new System.Drawing.Point(6, 649);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 29);
             this.btnSave.TabIndex = 14;
@@ -190,7 +200,7 @@
             // lblDetails
             // 
             this.lblDetails.AutoSize = true;
-            this.lblDetails.Location = new System.Drawing.Point(20, 306);
+            this.lblDetails.Location = new System.Drawing.Point(20, 374);
             this.lblDetails.Name = "lblDetails";
             this.lblDetails.Size = new System.Drawing.Size(45, 20);
             this.lblDetails.TabIndex = 15;
@@ -200,107 +210,167 @@
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblAddress.Location = new System.Drawing.Point(24, 154);
+            this.lblAddress.Location = new System.Drawing.Point(20, 249);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(99, 31);
             this.lblAddress.TabIndex = 16;
             this.lblAddress.Text = "Address";
             // 
-            // label1
+            // lblCode
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(438, 197);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 20);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Address";
+            this.lblCode.AutoSize = true;
+            this.lblCode.Location = new System.Drawing.Point(428, 338);
+            this.lblCode.Name = "lblCode";
+            this.lblCode.Size = new System.Drawing.Size(87, 20);
+            this.lblCode.TabIndex = 17;
+            this.lblCode.Text = "Postal Code";
             // 
-            // label2
+            // lblStreet
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(219, 243);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 20);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Address";
+            this.lblStreet.AutoSize = true;
+            this.lblStreet.Location = new System.Drawing.Point(222, 337);
+            this.lblStreet.Name = "lblStreet";
+            this.lblStreet.Size = new System.Drawing.Size(48, 20);
+            this.lblStreet.TabIndex = 18;
+            this.lblStreet.Text = "Street";
             // 
-            // label3
+            // lblCity
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(219, 204);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 20);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Address";
+            this.lblCity.AutoSize = true;
+            this.lblCity.Location = new System.Drawing.Point(222, 299);
+            this.lblCity.Name = "lblCity";
+            this.lblCity.Size = new System.Drawing.Size(34, 20);
+            this.lblCity.TabIndex = 19;
+            this.lblCity.Text = "City";
             // 
-            // label4
+            // lblRegion
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 236);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 20);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Address";
+            this.lblRegion.AutoSize = true;
+            this.lblRegion.Location = new System.Drawing.Point(20, 334);
+            this.lblRegion.Name = "lblRegion";
+            this.lblRegion.Size = new System.Drawing.Size(56, 20);
+            this.lblRegion.TabIndex = 20;
+            this.lblRegion.Text = "Region";
             // 
-            // label5
+            // lblCountry
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 196);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 20);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Address";
+            this.lblCountry.AutoSize = true;
+            this.lblCountry.Location = new System.Drawing.Point(20, 299);
+            this.lblCountry.Name = "lblCountry";
+            this.lblCountry.Size = new System.Drawing.Size(60, 20);
+            this.lblCountry.TabIndex = 21;
+            this.lblCountry.Text = "Country";
             // 
-            // textBox1
+            // txtCountry
             // 
-            this.textBox1.Location = new System.Drawing.Point(88, 197);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(125, 27);
-            this.textBox1.TabIndex = 22;
+            this.txtCountry.Location = new System.Drawing.Point(88, 292);
+            this.txtCountry.Name = "txtCountry";
+            this.txtCountry.Size = new System.Drawing.Size(125, 27);
+            this.txtCountry.TabIndex = 22;
             // 
-            // textBox2
+            // txtCity
             // 
-            this.textBox2.Location = new System.Drawing.Point(287, 197);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(125, 27);
-            this.textBox2.TabIndex = 23;
+            this.txtCity.Location = new System.Drawing.Point(287, 292);
+            this.txtCity.Name = "txtCity";
+            this.txtCity.Size = new System.Drawing.Size(125, 27);
+            this.txtCity.TabIndex = 23;
             // 
-            // textBox3
+            // txtStreet
             // 
-            this.textBox3.Location = new System.Drawing.Point(287, 240);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(125, 27);
-            this.textBox3.TabIndex = 24;
+            this.txtStreet.Location = new System.Drawing.Point(287, 331);
+            this.txtStreet.Name = "txtStreet";
+            this.txtStreet.Size = new System.Drawing.Size(125, 27);
+            this.txtStreet.TabIndex = 24;
             // 
-            // textBox4
+            // txtRegion
             // 
-            this.textBox4.Location = new System.Drawing.Point(88, 236);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(125, 27);
-            this.textBox4.TabIndex = 25;
+            this.txtRegion.Location = new System.Drawing.Point(88, 331);
+            this.txtRegion.Name = "txtRegion";
+            this.txtRegion.Size = new System.Drawing.Size(125, 27);
+            this.txtRegion.TabIndex = 25;
             // 
-            // textBox5
+            // txtCode
             // 
-            this.textBox5.Location = new System.Drawing.Point(515, 197);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(163, 27);
-            this.textBox5.TabIndex = 26;
+            this.txtCode.Location = new System.Drawing.Point(521, 334);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(163, 27);
+            this.txtCode.TabIndex = 26;
+            // 
+            // txtShipName
+            // 
+            this.txtShipName.Location = new System.Drawing.Point(119, 206);
+            this.txtShipName.Name = "txtShipName";
+            this.txtShipName.Size = new System.Drawing.Size(151, 27);
+            this.txtShipName.TabIndex = 27;
+            // 
+            // lblShipName
+            // 
+            this.lblShipName.AutoSize = true;
+            this.lblShipName.Location = new System.Drawing.Point(24, 213);
+            this.lblShipName.Name = "lblShipName";
+            this.lblShipName.Size = new System.Drawing.Size(82, 20);
+            this.lblShipName.TabIndex = 29;
+            this.lblShipName.Text = "Ship Name";
+            // 
+            // lblFreight
+            // 
+            this.lblFreight.AutoSize = true;
+            this.lblFreight.Location = new System.Drawing.Point(24, 165);
+            this.lblFreight.Name = "lblFreight";
+            this.lblFreight.Size = new System.Drawing.Size(55, 20);
+            this.lblFreight.TabIndex = 30;
+            this.lblFreight.Text = "Freight";
+            // 
+            // mtxtFreight
+            // 
+            this.mtxtFreight.Location = new System.Drawing.Point(119, 165);
+            this.mtxtFreight.Mask = "000,00";
+            this.mtxtFreight.Name = "mtxtFreight";
+            this.mtxtFreight.Size = new System.Drawing.Size(151, 27);
+            this.mtxtFreight.TabIndex = 31;
+            // 
+            // cmsItem
+            // 
+            this.cmsItem.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsItem.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.cmsItem.Name = "cmsItem";
+            this.cmsItem.Size = new System.Drawing.Size(211, 80);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // OrderDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 566);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(714, 690);
+            this.Controls.Add(this.mtxtFreight);
+            this.Controls.Add(this.lblFreight);
+            this.Controls.Add(this.lblShipName);
+            this.Controls.Add(this.txtShipName);
+            this.Controls.Add(this.txtCode);
+            this.Controls.Add(this.txtRegion);
+            this.Controls.Add(this.txtStreet);
+            this.Controls.Add(this.txtCity);
+            this.Controls.Add(this.txtCountry);
+            this.Controls.Add(this.lblCountry);
+            this.Controls.Add(this.lblRegion);
+            this.Controls.Add(this.lblCity);
+            this.Controls.Add(this.lblStreet);
+            this.Controls.Add(this.lblCode);
             this.Controls.Add(this.lblAddress);
             this.Controls.Add(this.lblDetails);
             this.Controls.Add(this.btnSave);
@@ -322,6 +392,7 @@
             this.Name = "OrderDetails";
             this.Text = "OrderDetails";
             ((System.ComponentModel.ISupportInitialize)(this.dgwOrfLine)).EndInit();
+            this.cmsItem.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,15 +417,22 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblDetails;
         private System.Windows.Forms.Label lblAddress;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label lblCode;
+        private System.Windows.Forms.Label lblStreet;
+        private System.Windows.Forms.Label lblCity;
+        private System.Windows.Forms.Label lblRegion;
+        private System.Windows.Forms.Label lblCountry;
+        private System.Windows.Forms.TextBox txtCountry;
+        private System.Windows.Forms.TextBox txtCity;
+        private System.Windows.Forms.TextBox txtStreet;
+        private System.Windows.Forms.TextBox txtRegion;
+        private System.Windows.Forms.TextBox txtCode;
+        private System.Windows.Forms.TextBox txtShipName;
+        private System.Windows.Forms.Label lblShipName;
+        private System.Windows.Forms.Label lblFreight;
+        private System.Windows.Forms.MaskedTextBox mtxtFreight;
+        private System.Windows.Forms.ContextMenuStrip cmsItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
