@@ -70,8 +70,17 @@ namespace SampleServices.Services
             };
             T result = new();
             try 
-            { 
-                using (var client = new RestClient(_connectionString + item.id))
+            {
+                string id;
+                if (typeof(T) == typeof(Customer)) 
+                { 
+                    id = (item as Customer).code;
+                    
+                }
+                else
+                    id = Convert.ToString(item.id);
+                
+                using (var client = new RestClient(_connectionString + id))
                 {
                     RestRequest request = new RestRequest("", Method.Get);
                     RestResponse response = client.GetAsync(request).Result;
@@ -111,11 +120,30 @@ namespace SampleServices.Services
                 OBJECT = typeof(T).ToString(),
             };
             try 
-            { 
-                using (var client = new RestClient(_connectionString))
+            {
+                PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+                string id;
+                if (typeof(T) == typeof(Customer))
                 {
-                    string jsonString = JsonConvert.SerializeObject(item);
-                    RestRequest request = new RestRequest(jsonString, Method.Put);
+                    id = (item as Customer).code;
+                    
+                }
+                else
+                    id = Convert.ToString(item.id);
+                
+                if(typeof(T) == typeof(Order))
+                    jsonResolver.IgnoreProperty(typeof(Address), "phone");
+
+                JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
+                serializerSettings.ContractResolver = jsonResolver;
+                string jsonString = JsonConvert.SerializeObject(item, serializerSettings);
+
+                using (var client = new RestClient(_connectionString+id))
+                {
+                    
+                    RestRequest request = new RestRequest();
+                    request.Method = Method.Put;
+                    request.AddStringBody(jsonString,DataFormat.Json);
                     RestResponse response = client.PutAsync(request).Result;
                     log.STATUSCODE = response.StatusCode.ToString();
                     log.STATUSDESCRIPTION = response.StatusDescription;
@@ -139,16 +167,24 @@ namespace SampleServices.Services
                 OBJECT = typeof(T).ToString(),
             };
             try 
-            { 
+            {
+                PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+
+                jsonResolver.IgnoreProperty(typeof(T), "id");
+
+                if (typeof(T) == typeof(Order))
+                    jsonResolver.IgnoreProperty(typeof(Address), "phone");
+
+                JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
+                serializerSettings.ContractResolver = jsonResolver;
+                string jsonString = JsonConvert.SerializeObject(item, serializerSettings);
+
+
                 using (var client = new RestClient(_connectionString))
                 {
-                    PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
-                    //jsonResolver.IgnoreProperty(typeof(T), "id");
-                    JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
-                    serializerSettings.ContractResolver = jsonResolver;
-                    string jsonString = JsonConvert.SerializeObject(item, serializerSettings);
-
-                    RestRequest request = new RestRequest(jsonString, Method.Post);
+                    RestRequest request = new RestRequest();
+                    request.Method = Method.Post;
+                    request.AddStringBody(jsonString,DataFormat.Json);
                     RestResponse response = client.PostAsync(request).Result;
                     log.STATUSCODE = response.StatusCode.ToString();
                     log.STATUSDESCRIPTION = response.StatusDescription;
@@ -164,7 +200,7 @@ namespace SampleServices.Services
             }
         }
 
-        public void Delete(T Item)
+        public void Delete(T item)
         {
             Log log = new Log()
             {
@@ -172,8 +208,18 @@ namespace SampleServices.Services
                 OBJECT = typeof(T).ToString(),
             };
             try
-            { 
-                using (var client = new RestClient(_connectionString+Item.id))
+            {
+                string id;
+                if (typeof(T) == typeof(Customer))
+                {
+                    id = (item as Customer).code;
+
+                }
+                else
+                    id = Convert.ToString(item.id);
+
+
+                using (var client = new RestClient(_connectionString+id))
                 {
                     RestRequest request = new RestRequest("", Method.Delete);
                     RestResponse response = client.DeleteAsync(request).Result;

@@ -10,6 +10,10 @@ namespace SampleServices.Model
 {
     public class Employee : IBaseModel
     {
+        public Employee()
+        {
+            address = new();
+        }
         [Browsable(false)]
         public int? id { get; set; }
         public string lastName { get; set; }

@@ -58,7 +58,7 @@ namespace SampleWinForms.View
             { 
                 dgwOrfLine.DataSource = _order.details;
                 dgwOrfLine.ReadOnly = true;
-                cbxCustomer.SelectedItem = _customers.FirstOrDefault(p => p.id == _order.customerId);
+                cbxCustomer.SelectedItem = _customers.FirstOrDefault(p => p.code == _order.customerId);
                 cbxEmployee.SelectedItem = _employees.FirstOrDefault(p => p.id == _order.employeeId);
                 cbxShipper.SelectedItem = _shippers.FirstOrDefault(p => p.id == _order.shipVia);
 
@@ -104,58 +104,13 @@ namespace SampleWinForms.View
                     case OpenType.Create:
                         using (OrderService service = new OrderService())
                         {
-                            Order order = new Order()
-                            {
-                                id = _order.id == null ? 0:_order.id,
-                                customerId = ((Customer)cbxCustomer.SelectedItem).id,
-                                employeeId = (int)((Employee)cbxEmployee.SelectedItem).id,
-                                shipVia = (int)((Shipper)cbxShipper.SelectedItem).id,
-                                orderDate = dtpOrder.Value,
-                                requiredDate = dtpRequired.Value,
-                                shippedDate = dtpShip.Value,
-                                freight = Convert.ToDouble(mtxtFreight.Text),
-                                shipName = txtShipName.Text,
-                                details = (List<Detail>)dgwOrfLine.DataSource
-                            };
-                            Address address = new Address
-                            {
-                                country = txtCountry.Text,
-                                city = txtCity.Text,
-                                street = txtStreet.Text,
-                                postalCode = txtCode.Text,
-                                region = txtRegion.Text
-                            };
-                            order.shipAddress = address;
-                            service.Add(order);
+                            service.Add(MakeOrder());
                         }
                         break;
                     case OpenType.Alter:
                         using (OrderService service = new OrderService())
                         {
-                            Order order = new Order()
-                            {
-                                id = _order.id,
-                                customerId = cbxCustomer.ValueMember,
-                                employeeId = Convert.ToInt32(cbxEmployee.ValueMember),
-                                shipVia = Convert.ToInt32(cbxShipper.ValueMember),
-                                orderDate = dtpOrder.Value,
-                                requiredDate = dtpRequired.Value,
-                                shippedDate = dtpShip.Value,
-                                freight=Convert.ToDouble(mtxtFreight.Text),
-                                shipName = txtShipName.Text,
-                                details = (List<Detail>)dgwOrfLine.DataSource
-                            };
-                            Address address = new Address
-                            {
-                                country=txtCountry.Text,
-                                city=txtCity.Text,
-                                street=txtStreet.Text,
-                                postalCode=txtCode.Text,
-                                region=txtRegion.Text
-                            };
-                            order.shipAddress = address;
-
-                            service.Update(order);
+                            service.Update(MakeOrder());
                         }
                         break;
                 }
@@ -198,5 +153,34 @@ namespace SampleWinForms.View
             dgwOrfLine.DataSource = _order.details;
             dgwOrfLine.Refresh();
         }
+
+        private Order MakeOrder()
+        {
+            Order order = new Order()
+            {
+                id = _order.id == null ? 0 : _order.id,
+                customerId = ((Customer)cbxCustomer.SelectedItem).code,
+                employeeId = (int)((Employee)cbxEmployee.SelectedItem).id,
+                shipVia = (int)((Shipper)cbxShipper.SelectedItem).id,
+                orderDate = dtpOrder.Value,
+                requiredDate = dtpRequired.Value,
+                shippedDate = dtpShip.Value,
+                freight = Convert.ToDouble(mtxtFreight.Text),
+                shipName = txtShipName.Text,
+                details = (List<Detail>)dgwOrfLine.DataSource
+            };
+            Address address = new Address
+            {
+                country = txtCountry.Text,
+                city = txtCity.Text,
+                street = txtStreet.Text,
+                postalCode = txtCode.Text,
+                region = txtRegion.Text
+            };
+            order.shipAddress = address;
+
+            return order;
+        }
     }
+
 }

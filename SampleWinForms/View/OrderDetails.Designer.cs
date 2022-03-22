@@ -324,7 +324,6 @@
             // mtxtFreight
             // 
             this.mtxtFreight.Location = new System.Drawing.Point(119, 165);
-            this.mtxtFreight.Mask = "000,00";
             this.mtxtFreight.Name = "mtxtFreight";
             this.mtxtFreight.Size = new System.Drawing.Size(151, 27);
             this.mtxtFreight.TabIndex = 31;
@@ -336,19 +335,19 @@
             this.addToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsItem.Name = "cmsItem";
-            this.cmsItem.Size = new System.Drawing.Size(211, 80);
+            this.cmsItem.Size = new System.Drawing.Size(123, 52);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 

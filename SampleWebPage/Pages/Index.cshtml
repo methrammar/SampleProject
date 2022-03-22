@@ -1,0 +1,43 @@
+﻿@page
+@using SampleServices.Model
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="Browse Grid">
+    <h1 class="display-2">Orders</h1>
+    <table>
+        <tr>
+            <td>Customer</td>
+            <td>Employee</td>
+            <td>Order Date</td>
+            <td>Required Date</td>
+            <td>Shipped Date</td>
+            <td>Freight</td>
+            <td>Ship Name</td>
+            <td>Shipping Company</td>
+            <td>Total</td>
+        </tr>
+
+        @foreach (Order item in Model.orders)
+        {
+            <tr>
+                <td>@item.customer</td>
+                <td>@item.employee</td>
+                <td>@item.orderDate</td>
+                <td>@item.requiredDate</td>
+                <td>@item.shippedDate</td>
+                <td>@item.freight</td>
+                <td>@item.shipName</td>
+                <td>@item.shippingCompany</td>
+                <td>@item.total</td>
+           </tr>           
+        }
+    </table>
+</div>

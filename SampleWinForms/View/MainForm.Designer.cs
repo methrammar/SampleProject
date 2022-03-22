@@ -40,7 +40,8 @@
             this.lblItemSearch = new System.Windows.Forms.Label();
             this.lblCatergories = new System.Windows.Forms.Label();
             this.cbxCategories = new System.Windows.Forms.ComboBox();
-            this.tpSuppliers = new System.Windows.Forms.TabPage();
+            this.tpCustomers = new System.Windows.Forms.TabPage();
+            this.dgwCustomer = new System.Windows.Forms.DataGridView();
             this.tpEmployees = new System.Windows.Forms.TabPage();
             this.btnClose = new System.Windows.Forms.Button();
             this.cmsMain = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -54,6 +55,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgwOrders)).BeginInit();
             this.tpProducts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwProducts)).BeginInit();
+            this.tpCustomers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwCustomer)).BeginInit();
             this.cmsMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +64,7 @@
             // 
             this.tcMain.Controls.Add(this.tpOrders);
             this.tcMain.Controls.Add(this.tpProducts);
-            this.tcMain.Controls.Add(this.tpSuppliers);
+            this.tcMain.Controls.Add(this.tpCustomers);
             this.tcMain.Controls.Add(this.tpEmployees);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Top;
             this.tcMain.Location = new System.Drawing.Point(0, 0);
@@ -179,14 +182,27 @@
             this.cbxCategories.TabIndex = 0;
             this.cbxCategories.SelectedValueChanged += new System.EventHandler(this.cbxCategories_SelectedValueChanged);
             // 
-            // tpSuppliers
+            // tpCustomers
             // 
-            this.tpSuppliers.Location = new System.Drawing.Point(4, 29);
-            this.tpSuppliers.Name = "tpSuppliers";
-            this.tpSuppliers.Size = new System.Drawing.Size(1254, 748);
-            this.tpSuppliers.TabIndex = 2;
-            this.tpSuppliers.Text = "Suppliers";
-            this.tpSuppliers.UseVisualStyleBackColor = true;
+            this.tpCustomers.Controls.Add(this.dgwCustomer);
+            this.tpCustomers.Location = new System.Drawing.Point(4, 29);
+            this.tpCustomers.Name = "tpCustomers";
+            this.tpCustomers.Size = new System.Drawing.Size(1254, 748);
+            this.tpCustomers.TabIndex = 2;
+            this.tpCustomers.Text = "Customers";
+            this.tpCustomers.UseVisualStyleBackColor = true;
+            // 
+            // dgwCustomer
+            // 
+            this.dgwCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgwCustomer.Location = new System.Drawing.Point(0, 0);
+            this.dgwCustomer.Name = "dgwCustomer";
+            this.dgwCustomer.RowHeadersWidth = 51;
+            this.dgwCustomer.RowTemplate.Height = 29;
+            this.dgwCustomer.Size = new System.Drawing.Size(1254, 748);
+            this.dgwCustomer.TabIndex = 0;
+            this.dgwCustomer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgwCustomer_MouseClick);
             // 
             // tpEmployees
             // 
@@ -274,6 +290,8 @@
             this.tpProducts.ResumeLayout(false);
             this.tpProducts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwProducts)).EndInit();
+            this.tpCustomers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgwCustomer)).EndInit();
             this.cmsMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -284,7 +302,7 @@
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tpOrders;
         private System.Windows.Forms.TabPage tpProducts;
-        private System.Windows.Forms.TabPage tpSuppliers;
+        private System.Windows.Forms.TabPage tpCustomers;
         private System.Windows.Forms.TabPage tpEmployees;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.DataGridView dgwOrders;
@@ -301,5 +319,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmUpdate;
         private System.Windows.Forms.ToolStripMenuItem tsmExamine;
         private System.Windows.Forms.ToolStripMenuItem tsmDelete;
+        private System.Windows.Forms.DataGridView dgwCustomer;
     }
 }

@@ -17,13 +17,13 @@ namespace SampleWinForms.View
     {
         #region class variables
 
-        List<Product> products;
-        List<Order> orders;
-        List<Category> categories;
-        List<Customer> customers;
-        List<Shipper> shippers;
-        List<Supplier> suppliers;
-        List<Employee> employees;
+        List<Product> products = new();
+        List<Order> orders=new();
+        List<Category> categories = new();
+        List<Customer> customers = new();
+        List<Shipper> shippers = new();
+        List<Supplier> suppliers = new();
+        List<Employee> employees = new();
 
         #endregion
 
@@ -44,6 +44,8 @@ namespace SampleWinForms.View
             dgwOrders.ReadOnly = true;
             dgwProducts.DataSource = products;
             dgwProducts.ReadOnly = true;
+            dgwCustomer.DataSource = customers;
+            dgwCustomer.ReadOnly = true;
 
             cbxCategories.DisplayMember = "name";
             cbxCategories.ValueMember = "id";
@@ -113,7 +115,12 @@ namespace SampleWinForms.View
 
                     break;
                 case 2:
-                    break;
+                    using (Form form = new AddCustomer())
+                    {
+                        form.ShowDialog();
+                        RefreshForm();
+                    } 
+                        break;
                 case 3:
                     break;
             }
@@ -169,16 +176,17 @@ namespace SampleWinForms.View
                     using (OrderService orderService = new OrderService())
                     {
                         orderService.Delete(selected);
-                        RefreshForm();
                     }
                     break;
                 case 1:
                     break;
                 case 2:
+
                     break;
                 case 3:
                     break;
             }
+            RefreshForm();
         }
         private void dgwOrders_MouseClick(object sender, MouseEventArgs e)
         {
@@ -187,6 +195,12 @@ namespace SampleWinForms.View
         }
 
         private void dgwProducts_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                cmsMain.Show(Cursor.Position.X, Cursor.Position.Y);
+        }
+
+        private void dgwCustomer_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
                 cmsMain.Show(Cursor.Position.X, Cursor.Position.Y);
@@ -216,9 +230,15 @@ namespace SampleWinForms.View
 
                 foreach(var item in orders)
                 {
-                    item.customer= customers.Find(p=>p.id == item.customerId).companyName;
-                    item.employee = employees.Find(p => p.id == item.employeeId).firstName;
-                    item.shippingCompany = shippers.Find(p => p.id == item.shipVia).CompanyName;
+                    var customer = customers.Find(p => p.code == item.customerId);
+                    item.customer= customer == null ? "" : customer.companyName;
+
+                    var emplye = employees.Find(p => p.id == item.employeeId);
+                    item.employee = emplye == null ? "" :emplye.firstName;
+
+                    var shipper = shippers.Find(p => p.id == item.shipVia);
+                    item.shippingCompany = shipper ==null ? "" :  shipper.CompanyName;
+
                     foreach (Detail detail in item.details)
                     {
                         detail.productName = products.Find(p => p.id == detail.productId).name;
@@ -232,7 +252,5 @@ namespace SampleWinForms.View
 
         }
         #endregion
-
-
     }
 }
